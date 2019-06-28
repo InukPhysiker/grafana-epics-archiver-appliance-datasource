@@ -2,31 +2,38 @@
   "type": "datasource",
   "name": "EPICS Archiver Appliance",
   "id": "grafana-epics-archiver-appliance-datasource",
-
   "info": {
     "description": "EPICS Archiver Appliance Datasource",
     "author": {
       "name": "Alan Duffy",
       "url": "optional url"
     },
-    "keywords": ["searchable", "key", "words"],
+    "keywords": [
+      "searchable",
+      "key",
+      "words"
+    ],
     "logos": {
       "small": "img/logo_659x595.png",
       "large": "img/logo_659x595.png"
     },
     "links": [
-      {"name": "Project site", "url": "https://github.com/InukPhysiker/grafana-epics-archiver-appliance-datasource"},
-      {"name": "Apache License", "url": "https://github.com/InukPhysiker/grafana-epics-archiver-appliance-datasource/blob/master/LICENSE"}
+      {
+        "name": "Project site",
+        "url": "https://github.com/InukPhysiker/grafana-epics-archiver-appliance-datasource"
+      },
+      {
+        "name": "Apache License",
+        "url": "https://github.com/InukPhysiker/grafana-epics-archiver-appliance-datasource/blob/master/LICENSE"
+      }
     ],
     "version": "%VERSION%",
     "updated": "%TODAY%"
   },
-
   "dependencies": {
     "grafanaVersion": "6.2.2",
-    "plugins": [ ]
+    "plugins": []
   },
-
   "metrics": true,
   "annotations": false
 }
