@@ -7,18 +7,15 @@ import moment from 'moment';
 export default class EPICSArchAppDatasource {
 
     id: number;
-    name: string;
-
     url: string;
-    retrievalURL: string;
-    dataRetrievalURL: string;
+    jsonData: any;
 
     /** @ngInject */
     constructor(instanceSettings, private backendSrv, private templateSrv, private $q) {
 
+        this.id = instanceSettings.id;
         this.url = instanceSettings.url;
-        this.backendSrv = backendSrv;
-        this.templateSrv = templateSrv;
+        this.jsonData = instanceSettings.jsonData;
 
     }
 
@@ -104,15 +101,11 @@ export default class EPICSArchAppDatasource {
 
         var retrieval_query = 'pv=lastSample_' + sampleRate + '(' + pvname + ')' + '&from=' + startTime + '&to=' + stopTime + '&fetchLatestMetadata=true';
 
-        return this.doRequest({
-            url: this.dataRetrievalURL + '/data/getData.qw?' + retrieval_query,
-            method: 'GET',
-            data: {}
+        return this.backendSrv.datasourceRequest({
+            url: `api/datasources/proxy/${this.id}/dataRetrievalURL/data/getData.qw?${retrieval_query}`
         }).then((response) => {
 
-            var data = [],
-                datapoints = [],
-                titles = [];
+            var data = [], datapoints = [], titles = [];
             var i = 0;
             var j = 0;
 
@@ -123,7 +116,6 @@ export default class EPICSArchAppDatasource {
                         response.data[0].data[j]["val"], +new Date(response.data[0].data[j]["millis"])
                     ]);
                 }
-
                 grafanaResponse.data.push({
                     target: response.data[0].meta.name,
                     datapoints: datapoints,
@@ -133,7 +125,7 @@ export default class EPICSArchAppDatasource {
 
         }).then(() => {
             callback();
-        }).catch((err) => { // If we are here, we were unable to get metrics
+        }).catch((err) => { // Unable to get metrics
             let errMsg = 'Error getting metrics.';
             callback();
         });
@@ -154,8 +146,6 @@ export default class EPICSArchAppDatasource {
                 method: 'GET'
             })
             .then(res => {
-                this.retrievalURL = res.data.retrievalURL;
-                this.dataRetrievalURL = res.data.dataRetrievalURL;
                 return {
                     status: 'success',
                     message: 'EPICS Archiver Appliance Connection OK'
@@ -177,8 +167,4 @@ export default class EPICSArchAppDatasource {
             });
     }
 
-    doRequest(options) {
-        return this.backendSrv.datasourceRequest(options);
     }
-
-}
