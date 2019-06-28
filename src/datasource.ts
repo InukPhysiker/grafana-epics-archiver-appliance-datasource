@@ -147,26 +147,6 @@ export default class EPICSArchAppDatasource {
         throw new Error("Template Variable Support not implemented yet.");
     }
 
-    mapToTextValue(result) {
-        return _.map(result.data, (d, i) => {
-            if (d && d.text && d.value) {
-                return {
-                    text: d.text,
-                    value: d.value
-                };
-            } else if (_.isObject(d)) {
-                return {
-                    text: d,
-                    value: i
-                };
-            }
-            return {
-                text: d,
-                value: d
-            };
-        });
-    }
-
     testDatasource() {
         return this.backendSrv
             .datasourceRequest({
