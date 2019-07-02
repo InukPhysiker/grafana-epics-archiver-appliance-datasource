@@ -1,6 +1,6 @@
 import EPICSArchAppDatasource from './datasource';
-import {EPICSArchAppQueryCtrl} from './query_ctrl';
-import {EPICSArchAppConfigCtrl} from './config_ctrl';
+import { EPICSArchAppQueryCtrl } from './query_ctrl';
+import { EPICSArchAppConfigCtrl } from './config_ctrl';
 
 class EPICSArchAppAnnotationsQueryCtrl {
   static templateUrl = 'partials/annotations.editor.html';
