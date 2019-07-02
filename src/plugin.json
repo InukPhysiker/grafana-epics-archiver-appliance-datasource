@@ -1,32 +1,49 @@
-{
-  "type": "datasource",
-  "name": "EPICS Archiver Appliance",
-  "id": "grafana-epics-archiver-appliance-datasource",
-
-  "info": {
-    "description": "EPICS Archiver Appliance Datasource",
-    "author": {
-      "name": "Alan Duffy",
-      "url": "optional url"
+{ 
+    "type" : "datasource",
+    "name" : "EPICS Archiver Appliance",
+    "id" : "grafana-epics-archiver-appliance-datasource",
+    "info" : { 
+        "description" : "EPICS Archiver Appliance Datasource",
+        "author" : { 
+            "name" : "Alan Duffy",
+            "url" : "optional url"
+        },
+        "keywords" : [ "searchable", "key", "words" ],
+        "logos" : { 
+            "small" : "img/logo_659x595.png",
+            "large" : "img/logo_659x595.png"
+        },
+        "links" : [ { 
+            "name" : "Project site",
+            "url" : "https://github.com/InukPhysiker/grafana-epics-archiver-appliance-datasource"
+        }, { 
+            "name" : "Apache License",
+            "url" : "https://github.com/InukPhysiker/grafana-epics-archiver-appliance-datasource/blob/master/LICENSE"
+        } ],
+        "version" : "%VERSION%",
+        "updated" : "%TODAY%"
     },
-    "keywords": ["searchable", "key", "words"],
-    "logos": {
-      "small": "img/logo_659x595.png",
-      "large": "img/logo_659x595.png"
+    "routes" : [ { 
+        "path" : "archiverappliance",
+        "method" : "*",
+        "url" : "http://vm-archiver-02:17665"
+    }, { 
+        "path" : "engineURL",
+        "method" : "*",
+        "url" : "{{.JsonData.engineURL}}"
+    }, { 
+        "path" : "retrievalURL",
+        "method" : "*",
+        "url" : "{{.JsonData.retrievalURL}}"
+    }, { 
+        "path" : "dataRetrievalURL",
+        "method" : "*",
+        "url" : "{{.JsonData.dataRetrievalURL}}"
+    } ],
+    "dependencies" : { 
+        "grafanaVersion" : "6.2.2",
+        "plugins" : [ ]
     },
-    "links": [
-      {"name": "Project site", "url": "https://github.com/InukPhysiker/grafana-epics-archiver-appliance-datasource"},
-      {"name": "Apache License", "url": "https://github.com/InukPhysiker/grafana-epics-archiver-appliance-datasource/blob/master/LICENSE"}
-    ],
-    "version": "%VERSION%",
-    "updated": "%TODAY%"
-  },
-
-  "dependencies": {
-    "grafanaVersion": "6.2.2",
-    "plugins": [ ]
-  },
-
-  "metrics": true,
-  "annotations": false
+    "metrics" : true,
+    "annotations" : false
 }
