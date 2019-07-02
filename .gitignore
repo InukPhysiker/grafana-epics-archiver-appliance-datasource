@@ -1,0 +1,8 @@
+dist
+node_modules
+partials
+public
+settings
+*.bak
+*-lock.json
+
