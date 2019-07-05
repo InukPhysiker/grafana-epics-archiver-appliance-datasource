@@ -1,5 +1,8 @@
 ///<reference path="../node_modules/grafana-sdk-mocks/app/headers/common.d.ts" />
 
+import angular from 'angular';
+import _ from 'lodash';
+
 export class EPICSArchAppConfigCtrl {
   static templateUrl = 'partials/config.html';
   current: any;
@@ -7,14 +10,10 @@ export class EPICSArchAppConfigCtrl {
   datasources: any;
 
   constructor($scope, private backendSrv) {
-    this.suggestUrl = "http://vm-archiver-02:17665";
     this.current.jsonData.identity = this.current.jsonData.identity || '';
     this.current.jsonData.engineURL = this.current.jsonData.engineURL || '';
     this.current.jsonData.retrievalURL = this.current.jsonData.retrievalURL || '';
     this.current.jsonData.dataRetrievalURL = this.current.jsonData.dataRetrievalURL || '';
-  }
-  getSuggestUrls = () => {
-    return [this.suggestUrl];
   }
 
   getApplianceInfo() {
@@ -34,4 +33,9 @@ export class EPICSArchAppConfigCtrl {
         console.log(err);
       });
   }
+
+  getSuggestUrls = () => {
+    return [this.suggestUrl];
+  };
+
 }
