@@ -102,7 +102,8 @@ export default class EPICSArchAppDatasource {
         var retrieval_query = 'pv=lastSample_' + sampleRate + '(' + pvname + ')' + '&from=' + startTime + '&to=' + stopTime + '&fetchLatestMetadata=true';
 
         return this.backendSrv.datasourceRequest({
-            url: `api/datasources/proxy/${this.id}/dataRetrievalURL/data/getData.qw?${retrieval_query}`
+            // url: `api/datasources/proxy/${this.id}/dataRetrievalURL/data/getData.qw?${retrieval_query}`
+            url: this.url + `/retrieval/data/getData.qw?${retrieval_query}`
         }).then((response) => {
 
             var data = [], datapoints = [], titles = [];
@@ -142,7 +143,7 @@ export default class EPICSArchAppDatasource {
     testDatasource() {
         return this.backendSrv
             .datasourceRequest({
-                url: this.url + '/mgmt/bpl/getApplianceInfo',
+                url: this.url,
                 method: 'GET'
             })
             .then(res => {
