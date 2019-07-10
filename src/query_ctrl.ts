@@ -10,8 +10,10 @@ export class EPICSArchAppQueryCtrl extends QueryCtrl {
   defaults = {
   };
 
+  selectedProcessVariableSegment: any;
+
   /** @ngInject **/
-  constructor($scope, $injector, private templateSrv) {
+  constructor($scope, $injector, private templateSrv, private uiSegmentSrv) {
     super($scope, $injector);
 
     _.defaultsDeep(this.target, this.defaults);
@@ -22,13 +24,27 @@ export class EPICSArchAppQueryCtrl extends QueryCtrl {
 
     this.target.pvname = this.target.pvname || 'pv name';
 
+    this.selectedProcessVariableSegment = this.uiSegmentSrv.newSegment(this.target.selectedProcessVariableSegment || '');
+
   }
 
   getOptions(query) {
     return this.datasource.metricFindQuery(query || '');
   }
 
-  onChangeInternal() {
+  getProcessVariableSegments(query) {
+    return this.datasource.getPVNames(query).then(values => {
+      return values.map(value => {
+        return this.uiSegmentSrv.newSegment({
+          value
+        });
+      });
+    });
+  }
+
+  onChange() {
+    this.target.pvname = this.selectedProcessVariableSegment.value;
     this.panelCtrl.refresh(); // Asks the panel to refresh data.
   }
+
 }
