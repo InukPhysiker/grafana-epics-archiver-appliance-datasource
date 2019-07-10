@@ -1,7 +1,9 @@
 <query-editor-row query-ctrl="ctrl" can-collapse="false">
 	<div class="gf-form">
 		<label class="gf-form-label query-keyword">PV NAME</label>
-    <metric-segment segment="ctrl.selectedProcessVariableSegment"
+    <metric-segment
+      class="width-15"
+      segment="ctrl.selectedProcessVariableSegment"
       get-options="ctrl.getProcessVariableSegments($query)"
       on-change="ctrl.onChange()"></metric-segment>
 	</div>
