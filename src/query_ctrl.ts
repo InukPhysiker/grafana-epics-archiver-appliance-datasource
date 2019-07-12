@@ -22,9 +22,9 @@ export class EPICSArchAppQueryCtrl extends QueryCtrl {
 
     //this.target.type = this.target.type || 'timeserie';
 
-    this.target.pvname = this.target.pvname || 'pv name';
+    this.target.pvname = this.target.pvname || '';
 
-    this.selectedProcessVariableSegment = this.uiSegmentSrv.newSegment(this.target.selectedProcessVariableSegment || '');
+    this.selectedProcessVariableSegment = this.uiSegmentSrv.newSegment(this.target.selectedProcessVariableSegment || this.target.pvname);
 
   }
 
