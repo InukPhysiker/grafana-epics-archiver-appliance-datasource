@@ -18,12 +18,7 @@ export class EPICSArchAppQueryCtrl extends QueryCtrl {
 
     _.defaultsDeep(this.target, this.defaults);
 
-    //this.target.target = this.target.target || 'select metric';
-
-    //this.target.type = this.target.type || 'timeserie';
-
-    this.target.pvname = this.target.pvname || '';
-
+    this.target.pvname = this.target.pvname || {fake: true, value: '-- pv name --'};
     this.selectedProcessVariableSegment = this.uiSegmentSrv.newSegment(this.target.selectedProcessVariableSegment || this.target.pvname);
 
   }
