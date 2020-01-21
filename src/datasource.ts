@@ -27,7 +27,7 @@ export default class EPICSArchAppDatasource {
 
         const pvname = options.targets[0].pvname;
 
-        if (pvname == 'pv name' || pvname == undefined) {
+        if (pvname == '' || pvname == undefined) {
             return this.$q.when({ data: [] });
         }
 
@@ -138,6 +138,31 @@ export default class EPICSArchAppDatasource {
 
     metricFindQuery(query: string) {
         throw new Error("Template Variable Support not implemented yet.");
+    }
+
+    // pv
+    // An optional argument that can contain a GLOB wildcard. We will return PVs that match this GLOB. For example, if pv=KLYS*, the server will return all PVs that start with the string KLYS.
+    // regex
+    // An optional argument that can contain a Java regex wildcard. We will return PVs that match this regex. For example, if pv=KLYS.*, the server will return all PVs that start with the string KLYS.
+    // limit
+    // An optional argument that specifies the number of matched PV's that are returned. If unspecified, we return 500 PV names. To get all the PV names, (potentially in the millions), set limit to 1.
+
+    getPVNames(query) {
+        const templatedQuery = this.templateSrv.replace(query);
+        return this.backendSrv.datasourceRequest({
+            url: this.url + '/retrieval/bpl/getMatchingPVs?limit=36&pv=' + query + '*',
+            method: 'GET',
+            params: { output: 'json' }
+        }).then((response) => {
+            if (response.status === 200) {
+                return response.data;
+            } else {
+                return [];
+            }
+
+        }).catch((error) => {
+            return [];
+        });
     }
 
     testDatasource() {
