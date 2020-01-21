@@ -99,7 +99,35 @@ export default class EPICSArchAppDatasource {
 
         const pvname = target.pvname;
 
-        var retrieval_query = 'pv=lastSample_' + sampleRate + '(' + pvname + ')' + '&from=' + startTime + '&to=' + stopTime + '&fetchLatestMetadata=true';
+        switch(target.queryType) { 
+            case 'firstSample': { 
+                var retrieval_query = 'pv=firstSample_' 
+               break; 
+            } 
+            case 'lastSample': { 
+                var retrieval_query = 'pv=lastSample_' 
+               break; 
+            } 
+            case 'min': { 
+                var retrieval_query = 'pv=min_' 
+               break; 
+            } 
+            case 'max': { 
+                var retrieval_query = 'pv=max_' 
+               break; 
+            } 
+            case 'mean': { 
+                var retrieval_query = 'pv=mean_' 
+               break; 
+            } 
+            default: { 
+                // Fix later
+                var retrieval_query = 'pv=lastSample_' 
+               break; 
+            } 
+         } 
+
+        retrieval_query += sampleRate + '(' + pvname + ')' + '&from=' + startTime + '&to=' + stopTime + '&fetchLatestMetadata=true';
 
         return this.backendSrv.datasourceRequest({
             // url: `api/datasources/proxy/${this.id}/dataRetrievalURL/data/getData.qw?${retrieval_query}`
