@@ -10,6 +10,21 @@ export class EPICSArchAppQueryCtrl extends QueryCtrl {
   defaults = {
   };
 
+
+  errors: any;
+
+  queryTypes: any;
+
+    queryTypeValidators = {
+      "firstSample": this.validateFirstSampleQuery.bind(this),
+      "lastSample": this.validateLastSampleQuery.bind(this),
+      "min": this.validateMinQuery.bind(this),
+      "max": this.validateMaxQuery.bind(this),
+      "mean": this.validateMeanQuery.bind(this),
+    };
+
+  defaultQueryType = "lastSample";
+
   selectedProcessVariableSegment: any;
 
   /** @ngInject **/
@@ -20,6 +35,15 @@ export class EPICSArchAppQueryCtrl extends QueryCtrl {
 
     this.target.pvname = this.target.pvname || {fake: true, value: '-- pv name --'};
     this.selectedProcessVariableSegment = this.uiSegmentSrv.newSegment(this.target.selectedProcessVariableSegment || this.target.pvname);
+
+      if (!this.target.queryType) {
+        this.target.queryType = this.defaultQueryType;
+
+  }
+
+    this.queryTypes = _.keys(this.queryTypeValidators);
+
+    this.errors = this.validateTarget();
 
   }
 
@@ -40,6 +64,52 @@ export class EPICSArchAppQueryCtrl extends QueryCtrl {
   onChange() {
     this.target.pvname = this.selectedProcessVariableSegment.value;
     this.panelCtrl.refresh(); // Asks the panel to refresh data.
+  }
+
+
+    isValidQueryType(type) {
+      return _.has(this.queryTypeValidators, type);
+    }
+    
+
+validateFirstSampleQuery(target, errs) {
+      return true;
+    }
+    validateLastSampleQuery(target, errs) {
+      return true;
+    }
+    validateMinQuery(target, errs) {
+      return true;
+    }
+    validateMaxQuery(target, errs) {
+      return true;
+    }
+    validateMeanQuery(target, errs) {
+      return true;
+    }
+
+  validateTarget() {
+    var errs: any = {};
+
+      if (!this.target.queryType) {
+        errs.queryType = "You must supply a query type.";
+      } else if (!this.isValidQueryType(this.target.queryType)) {
+        errs.queryType = "Unknown query type: " + this.target.queryType + ".";
+      } else {
+        this.queryTypeValidators[this.target.queryType](this.target, errs);
+      }
+
+
+
+     // if (this.query) {
+        // if (!this.isValidQuery(this.query)) {
+        //   errs.query = "Invalid Query type: " + this.query + ".";
+        // }
+     // }
+
+
+    return errs;
+
   }
 
 }
