@@ -1,7 +1,7 @@
 { 
     "type" : "datasource",
-    "name" : "EPICS Archiver Appliance",
-    "id" : "grafana-epics-archiver-appliance-datasource",
+    "name" : "EPICS Archiver Appliance - Test",
+    "id" : "grafana-epics-archiver-appliance-datasource-experimental",
     "info" : { 
         "description" : "EPICS Archiver Appliance Datasource",
         "author" : { 
