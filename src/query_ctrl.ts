@@ -67,6 +67,12 @@ export class EPICSArchAppQueryCtrl extends QueryCtrl {
   }
 
 
+  targetBlur() {
+    this.errors = this.validateTarget();
+    this.refresh();
+  }
+
+
     isValidQueryType(type) {
       return _.has(this.queryTypeValidators, type);
     }
