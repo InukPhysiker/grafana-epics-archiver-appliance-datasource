@@ -79,7 +79,7 @@ export default class EPICSArchAppDatasource {
         const requests = options.targets.map((target) => {
             return new Promise((resolve) => {
 
-                if (target.hide || target.pvname == 'pv name') { // If the user clicked on the eye icon to hide, don't fetch the metrics.
+                if (target.hide || target.pvname == '-- pv name --') { // If the user clicked on the eye icon to hide, don't fetch the metrics.
                     resolve();
                 } else {
                     return new Promise((innerResolve) => {
