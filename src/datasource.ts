@@ -27,7 +27,7 @@ export default class EPICSArchAppDatasource {
 
         const pvname = options.targets[0].pvname;
 
-        if (pvname == '' || pvname == '-- pv name --' || pvname == undefined) {
+        if (pvname.fake || pvname.value == '') {
             return this.$q.when({ data: [] });
         }
 
